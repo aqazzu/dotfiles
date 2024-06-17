@@ -1,0 +1,71 @@
+{
+    // bar config
+    "position": "top",
+    "height": 25,
+    
+    // choose the order of the modules
+    "modules-left": ["sway/scratchpad", "sway/workspaces", "sway/mode"],
+    "modules-center": ["clock"],
+    "modules-right": ["pulseaudio", "backlight", "network", "battery", "sway/language", "tray", "custom/swaync"],
+
+    // modules configuration
+    "custom/swaync": {
+        "format": "",
+        "tooltip": false,
+        "on-click": "swaync-client -t",
+        "on-click-middle": "swaync-client -d"
+    },
+    "sway/workspaces": {
+        "format": "w{name}",
+        "enable-bar-scroll": true
+    },
+    "sway/scratchpad": {
+        "format": "x{count}",
+        "show-empty": true,
+        "tooltip": false
+    },
+    "clock": {
+        "interval": 1,
+        "format": "{:%H:%M}",
+        "tooltip-format": "{:%a %d %b}"
+    },
+    "pulseaudio": {
+        "scroll-step": 5.0,
+        "format": "s:{volume} m:{format_source}",
+        "format-muted": "s:muted m:{format_source}",
+        "format-source": "{volume}",
+        "format-source-muted": "muted",
+        "on-click": "pavucontrol",
+        "on-click-middle": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
+        "on-click-right": "pactl set-source-mute @DEFAULT_SOURCE@ toggle"
+    },
+    "backlight": {
+        "format": "l:{percent}",
+        "on-scroll-up": "brightnessctl s 5%+",
+        "on-scroll-down": "brightnessctl s 5%-"
+    },
+    "network": {
+        "interval": 1,
+        "format": "connected:{ifname}",
+        "tooltip-format": "up:{bandwidthUpBytes} down:{bandwidthDownBytes}",
+        "format-wifi": "wifi:{essid}",
+        "format-ethernet": "ethernet",
+        "format-disconnected": "disconnected",
+        "tooltip-format-disconnected": "disconnected"
+    },
+    "battery": {
+        "format": "b:{capacity}",
+	    "interval": 1
+    },
+    "sway/language": {
+        "format": "k:{shortDescription}",
+        "tooltip-format": "{long}",
+        "on-click": "swaymsg input '1:1:AT_Translated_Set_2_keyboard' xkb_switch_layout next"
+    },
+    "tray": {
+        "icon-size": 25,
+        "show-passive-items": true,
+        "spacing": 5,
+        "reverse-direction": true
+    }
+}

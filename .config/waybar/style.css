@@ -1,0 +1,110 @@
+@define-color lighter #EEEDEB;
+@define-color light #E0CCBE;
+@define-color dark #747264;
+@define-color darker #3C3633;
+
+@define-color blue #70A1D7;
+@define-color green #A2DE93;
+@define-color yellow #F7F48B;
+@define-color red #F47C7C;
+
+* {
+    font-family: monospace, Symbols Nerd Font Mono;
+    font-size: 18px;
+    /* font-weight: bold; */
+}
+
+window#waybar {
+    color: @lighter;
+    background-color: @darker;
+    border-top: 4px solid @dark;
+}
+
+button {
+    color: inherit;
+    background-color: @darker;
+    padding: 2px 6px;
+    box-shadow: inset 0 4px @dark;
+    border: none;
+    border-radius: 0 0 6px 6px;
+}
+button:hover {
+    text-shadow: none;
+    color: @darker;
+    background: @light;
+    box-shadow: inset 0 4px @lighter;
+}
+
+#workspaces button.focused {
+    background-color: @dark;
+    box-shadow: inset 0 4px transparent;
+}
+#workspaces button.urgent {
+    color: @darker;
+    background-color: @red;
+    box-shadow: inset 0 4px @dark;
+}
+
+#mode {
+    padding: 2px 6px;
+    border-radius: 0 0 6px 6px;
+    background-color: @dark;
+}
+
+#scratchpad.empty {
+    color: inherit;
+    background-color: @darker;
+}
+
+#scratchpad,
+#clock,
+#pulseaudio,
+#backlight,
+#network,
+#battery,
+#language,
+#tray,
+#custom-swaync {
+    padding: 2px 6px;
+    margin: 0 2px;
+    border-radius: 0 0 6px 6px;
+    background: @light;
+    color: @darker;
+    box-shadow: inset 0 4px @dark;
+}
+
+#scratchpad {
+    margin-left: 0;
+    margin-right: 4px;
+}
+
+#pulseaudio.bluetooth {
+    background-color: @blue;
+}
+#pulseaudio.muted, #pulseaudio.source-muted {
+    background-color: @yellow;
+}
+
+#network {
+    background-color: @green;
+}
+#network.disabled, #network.disconnected {
+    background-color: @red;
+}
+
+#battery.charging, #battery.plugged {
+    background-color: @green;
+}
+
+#tray {
+    box-shadow: inset 0 4px transparent;
+}
+
+#tray menu {
+    color: @lighter;
+    background: @dark;
+}
+
+#custom-swaync {
+    margin-right: 0;
+}

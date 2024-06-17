@@ -1,0 +1,12 @@
+set icons
+set period 1
+set scrolloff 8
+set sixel true
+
+# trash
+cmd trash %trash $fs
+map D trash
+
+# previewer
+set previewer ~/.config/lf/prv.sh
+map i $LESSOPEN='| ~/.config/lf/prv.sh %s' less -R $f

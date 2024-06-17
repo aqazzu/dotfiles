@@ -1,0 +1,259 @@
+### TODO
+# add --to-code in front of bindsym after sway update 1.9
+# github issue: https://github.com/swaywm/sway/issues/7535
+###
+
+### Autostart
+exec swaync
+exec lxpolkit
+exec dex -a
+exec wlsunset -S 08:00 -s 19:00 -t 5000 -d 1800
+
+### Variables
+set $mod Mod4
+set $left h
+set $down j
+set $up k
+set $right l
+set $term foot
+set $dmenu fuzzel -d
+#set $dmenu bemenu
+set $menu fuzzel
+#set $menu j4-dmenu-desktop --dmenu="bemenu -il 3" --term="foot" 
+
+set $SCREENSHOT_SAVE_NOTIF wl-copy < $IMG && $(notify-send "Screenshot taken" "Saved: $IMG" -A "open $IMG=open" -t 3000)
+set $VOLUME_VALUE wpctl get-volume @DEFAULT_SINK@ | tr -d . | cut -d" " -f2
+set $WOBSOCK $XDG_RUNTIME_DIR/wob.sock
+
+include /etc/sway/config-vars.d/*
+
+### Themeing
+set $lighter EEEDEB
+set $light E0CCBE
+set $dark 747264
+set $darker 3C3633
+
+set $blue 70A1D7
+set $green A1DE93
+set $yellow F7F48B
+set $red F47C7C
+
+client.focused $darker $light $darker
+client.focused_inactive $darker $dark $lighter
+client.unfocused $darker $dark $lighter
+client.urgent $darker $red $darker
+
+for_window [window_type="dialog"] floating enable
+for_window [window_type="splash"] floating enable
+for_window [window_type="utility"] floating enable
+for_window [window_type="menu"] floating enable
+for_window [title="(?:Open|Save) (?:File|Folder|As)"] floating enable;
+for_window [title="(?:Open|Save) (?:File|Folder|As)"] resize set 800 600
+for_window [window_role="pop-up"] floating enable
+for_window [window_role="bubble"] floating enable
+for_window [window_role="task_dialog"] floating enable
+for_window [window_role="Preferences"] floating enable
+
+### Output configuration
+output * bg ~/pics/Wallpapers/ChunLi_1920x1080.png fill
+#
+# Example configuration:
+#
+#   output HDMI-A-1 resolution 1920x1080 position 1920,0
+#
+# You can get the names of your outputs by running: swaymsg -t get_outputs
+
+### Idle configuration
+#
+# Example configuration:
+#
+# exec swayidle -w \
+#          timeout 300 'swaylock -f -c 000000' \
+#          timeout 600 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
+#          before-sleep 'swaylock -f -c 000000'
+#
+# This will lock your screen after 300 seconds of inactivity, then turn off
+# your displays after another 300 seconds, and turn your screens back on when
+# resumed. It will also lock your screen before your computer goes to sleep.
+
+### Input configuration
+input type:keyboard {
+    xkb_model pc105
+    xkb_layout ma,ma,ma
+    xkb_variant french,,tifinagh
+    xkb_options grp:rctrl_toggle
+}
+
+input type:touchpad {
+    dwt enabled
+    events disabled_on_external_mouse
+    middle_emulation enabled
+    natural_scroll enabled
+    tap enabled
+}
+
+### Key bindings
+# Start a terminal
+    bindsym $mod+Return exec $term
+
+# Kill focused window
+    bindsym $mod+Shift+q kill
+
+# Start your launcher
+    bindsym $mod+d exec $menu
+    bindsym $mod+Shift+d exec $menu2
+    bindsym XF86Search exec $menu
+
+# Mouse button for drag and resize
+    floating_modifier $mod normal
+
+# Reload the configuration file
+    bindsym $mod+Shift+c reload
+
+# Exit sway (logs you out of your Wayland session)
+    bindsym $mod+Shift+e exec swaynag -t warning -y overlay -e bottom -f mono -m 'Power Menu' -Z 'exit sway' 'swaymsg exit' -Z 'suspend' 'systemctl suspend' -Z 'hibernate' 'systemctl hibernate' -Z 'reboot' 'systemctl reboot' -Z 'shutdown' 'systemctl poweroff'
+
+# Screenshots
+    bindsym Print exec IMG=$(xdg-user-dir PICTURES)/Screenshots/$(date +"Screenshot_%Y%m%d_%H%M%S_%N.png") && grim -c $IMG && $SCREENSHOT_SAVE_NOTIF
+    bindsym $mod+Print exec IMG=$(xdg-user-dir PICTURES)/Screenshots/$(date +"Screenshot_%Y%m%d_%H%M%S_%N.png") && grim -c -g "$(slurp -d)" $IMG && $SCREENSHOT_SAVE_NOTIF
+
+# Clipboard history
+    bindsym $mod+c exec wl-paste | cat - ~/.clipboard > ~/.clipboard_tmp && mv ~/.clipboard_tmp ~/.clipboard
+    bindsym $mod+v exec cat ~/.clipboard | $dmenu | wl-copy -n
+
+# Volume control
+    bindsym XF86AudioPlay exec playerctl play-pause
+    bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
+    bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5% && $VOLUME_VALUE > $WOBSOCK
+    bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5% && $VOLUME_VALUE > $WOBSOCK
+    bindsym XF86AudioMicMute exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
+
+# Brightness control
+    bindsym XF86MonBrightnessUp exec brightnessctl s 5%+ | sed -En 's/.*\(([0-9]+)%\).*/\1/p' > $WOBSOCK
+    bindsym XF86MonBrightnessDown exec brightnessctl s 5%- | sed -En 's/.*\(([0-9]+)%\).*/\1/p' > $WOBSOCK
+#no idea why it doesnt work: bindsym XF86MonBrightnessDown exec brightnessctl -m s 5%- | cut -d, -f4 | sed -En 's/%//' > $WOBSOCK
+
+# DnD
+    bindsym $mod+n exec swaync-client -t
+    bindsym $mod+Shift+n exec swaync-client -d
+#
+# Moving around:
+#
+    # Move your focus around
+    bindsym $mod+$left focus left
+    bindsym $mod+$down focus down
+    bindsym $mod+$up focus up
+    bindsym $mod+$right focus right
+    # Or use $mod+[up|down|left|right]
+    bindsym $mod+Left focus left
+    bindsym $mod+Down focus down
+    bindsym $mod+Up focus up
+    bindsym $mod+Right focus right
+
+    # Move the focused window with the same, but add Shift
+    bindsym $mod+Shift+$left move left
+    bindsym $mod+Shift+$down move down
+    bindsym $mod+Shift+$up move up
+    bindsym $mod+Shift+$right move right
+    # Ditto, with arrow keys
+    bindsym $mod+Shift+Left move left
+    bindsym $mod+Shift+Down move down
+    bindsym $mod+Shift+Up move up
+    bindsym $mod+Shift+Right move right
+#
+# Workspaces:
+#
+    # Switch to workspace
+    bindsym {
+        $mod+Prior workspace prev
+        $mod+Next workspace next
+        $mod+ampersand workspace 1
+        $mod+eacute workspace 2
+        $mod+quotedbl workspace 3
+        $mod+apostrophe workspace 4
+        $mod+parenleft workspace 5
+        $mod+minus workspace 6
+        $mod+egrave workspace 7
+        $mod+underscore workspace 8
+        $mod+ccedilla workspace 9
+        $mod+agrave workspace 10
+    }
+    # Move focused container to workspace
+    bindsym {
+        $mod+Shift+Prior move container to workspace prev; workspace prev 
+        $mod+Shift+Next move container to workspace next; workspace next
+        $mod+Shift+ampersand move container to workspace 1; workspace 1
+        $mod+Shift+eacute move container to workspace 2; workspace 2
+        $mod+Shift+quotedbl move container to workspace 3; workspace 3
+        $mod+Shift+apostrophe move container to workspace 4; workspace 4
+        $mod+Shift+parenleft move container to workspace 5; workspace 5
+        $mod+Shift+minus move container to workspace 6; workspace 6
+        $mod+Shift+egrave move container to workspace 7; workspace 7
+        $mod+Shift+underscore move container to workspace 8; workspace 8
+        $mod+Shift+ccedilla move container to workspace 9; workspace 9
+        $mod+Shift+agrave move container to workspace 10; workspace 10
+    }
+#
+# Layout stuff:
+#
+    # You can "split" the current object of your focus with
+    # $mod+b or $mod+v, for horizontal and vertical splits
+    # respectively.
+    #bindsym {
+    #    $mod+b splith
+    #    $mod+v splitv
+    #}
+    # Switch the current container between different layout styles
+    bindsym {
+        $mod+s layout stacking
+        $mod+w layout tabbed
+        $mod+e layout toggle split
+    }
+    # Make the current focus fullscreen
+    bindsym $mod+f fullscreen
+
+    # Toggle the current focus between tiling and floating mode
+    bindsym $mod+space floating toggle
+
+    # Swap focus between the tiling area and the floating area
+    bindsym $mod+Shift+f focus mode_toggle
+
+    # Move focus to the parent/child container
+    bindsym $mod+a focus parent
+    bindsym $mod+z focus child
+
+# Scratchpad:
+    bindsym $mod+x move scratchpad
+    bindsym $mod+Tab scratchpad show
+#
+# Resizing containers:
+#
+mode "resize" {
+    # left will shrink the containers width
+    # right will grow the containers width
+    # up will shrink the containers height
+    # down will grow the containers height
+    bindsym {
+        $left resize shrink width 10px
+        $down resize grow height 10px
+        $up resize shrink height 10px
+        $right resize grow width 10px
+    }
+    # Ditto, with arrow keys
+    bindsym {
+        Left resize shrink width 10px
+        Down resize grow height 10px
+        Up resize shrink height 10px
+        Right resize grow width 10px
+    }
+    # Return to default mode
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+bindsym $mod+r mode "resize"
+
+#
+# Status Bar:
+#
+bar swaybar_command waybar
+include /etc/sway/config.d/*
