@@ -5,6 +5,7 @@ file=$1
 cacheroot="/home/rikou/.cache/lf"
 cache="$cacheroot$file.sixel"
 cachedir="$(dirname "$cache")"
+cachebit="$cacheroot/cache"
 
 caching_img () {
 if [ ! -e "$cache" ]
@@ -21,7 +22,7 @@ then
                  -- "$file"                  \
         | img2sixel -q low -w 500 > "$cache"
         ;;
-    *.mp4|*.mkv|*.mp3|*.m4a|*.flac) ffmpegthumbnailer -i "$file" -o /dev/stdout -s 0 | img2sixel -q low -h 500 || echo "no thumbnail" > "$cache";;
+    *.mp4|*.mkv|*.mp3|*.m4a|*.flac) ffmpegthumbnailer -i "$file" -o /dev/stdout -s 0 | img2sixel -q low -h 500 > "$cache";;
     *.blend) blender-thumbnailer "$file" /dev/stdout | img2sixel -q low -h 500 > "$cache";;
     *) echo "Something wrong happened, fix your preview script at: ~/.config/prv.sh!" > "$cache";;
     esac
@@ -46,4 +47,6 @@ case "$file" in
     *) highlight -O ansi "$file" || cat "$1";;
 esac
 
-exit 1
+if [ ! -e $cachebit ]; then echo 0 > $cachebit; fi
+
+return $(cat $cachebit)

@@ -8,6 +8,7 @@ exec swaync
 exec lxpolkit
 exec dex -a
 exec wlsunset -S 08:00 -s 19:00 -t 5000 -d 1800
+exec ~/.azotebg
 
 ### Variables
 set $mod Mod4
@@ -17,15 +18,7 @@ set $up k
 set $right l
 set $term foot
 set $dmenu fuzzel -d
-#set $dmenu bemenu
 set $menu fuzzel
-#set $menu j4-dmenu-desktop --dmenu="bemenu -il 3" --term="foot" 
-
-set $SCREENSHOT_SAVE_NOTIF wl-copy < $IMG && $(notify-send "Screenshot taken" "Saved: $IMG" -A "open $IMG=open" -t 3000)
-set $VOLUME_VALUE wpctl get-volume @DEFAULT_SINK@ | tr -d . | cut -d" " -f2
-set $WOBSOCK $XDG_RUNTIME_DIR/wob.sock
-
-include /etc/sway/config-vars.d/*
 
 ### Themeing
 set $lighter EEEDEB
@@ -53,15 +46,6 @@ for_window [window_role="pop-up"] floating enable
 for_window [window_role="bubble"] floating enable
 for_window [window_role="task_dialog"] floating enable
 for_window [window_role="Preferences"] floating enable
-
-### Output configuration
-output * bg ~/pics/Wallpapers/ChunLi_1920x1080.png fill
-#
-# Example configuration:
-#
-#   output HDMI-A-1 resolution 1920x1080 position 1920,0
-#
-# You can get the names of your outputs by running: swaymsg -t get_outputs
 
 ### Idle configuration
 #
@@ -101,7 +85,6 @@ input type:touchpad {
 
 # Start your launcher
     bindsym $mod+d exec $menu
-    bindsym $mod+Shift+d exec $menu2
     bindsym XF86Search exec $menu
 
 # Mouse button for drag and resize
@@ -110,12 +93,12 @@ input type:touchpad {
 # Reload the configuration file
     bindsym $mod+Shift+c reload
 
-# Exit sway (logs you out of your Wayland session)
+# Power Menu
     bindsym $mod+Shift+e exec swaynag -t warning -y overlay -e bottom -f mono -m 'Power Menu' -Z 'exit sway' 'swaymsg exit' -Z 'suspend' 'systemctl suspend' -Z 'hibernate' 'systemctl hibernate' -Z 'reboot' 'systemctl reboot' -Z 'shutdown' 'systemctl poweroff'
 
 # Screenshots
-    bindsym Print exec IMG=$(xdg-user-dir PICTURES)/Screenshots/$(date +"Screenshot_%Y%m%d_%H%M%S_%N.png") && grim -c $IMG && $SCREENSHOT_SAVE_NOTIF
-    bindsym $mod+Print exec IMG=$(xdg-user-dir PICTURES)/Screenshots/$(date +"Screenshot_%Y%m%d_%H%M%S_%N.png") && grim -c -g "$(slurp -d)" $IMG && $SCREENSHOT_SAVE_NOTIF
+    bindsym Print exec ~/.config/sway/scripts/screenshot.sh fullscreen
+    bindsym $mod+Print exec ~/.config/sway/scripts/screenshot.sh region
 
 # Clipboard history
     bindsym $mod+c exec wl-paste | cat - ~/.clipboard > ~/.clipboard_tmp && mv ~/.clipboard_tmp ~/.clipboard
@@ -124,27 +107,25 @@ input type:touchpad {
 # Volume control
     bindsym XF86AudioPlay exec playerctl play-pause
     bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
-    bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5% && $VOLUME_VALUE > $WOBSOCK
-    bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5% && $VOLUME_VALUE > $WOBSOCK
+    bindsym XF86AudioRaiseVolume exec ~/.config/sway/scripts/volume.sh +5%
+    bindsym XF86AudioLowerVolume exec ~/.config/sway/scripts/volume.sh -5%
     bindsym XF86AudioMicMute exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
 
 # Brightness control
-    bindsym XF86MonBrightnessUp exec brightnessctl s 5%+ | sed -En 's/.*\(([0-9]+)%\).*/\1/p' > $WOBSOCK
-    bindsym XF86MonBrightnessDown exec brightnessctl s 5%- | sed -En 's/.*\(([0-9]+)%\).*/\1/p' > $WOBSOCK
-#no idea why it doesnt work: bindsym XF86MonBrightnessDown exec brightnessctl -m s 5%- | cut -d, -f4 | sed -En 's/%//' > $WOBSOCK
+    bindsym XF86MonBrightnessUp exec ~/.config/sway/scripts/brightness.sh 5%+
+    bindsym XF86MonBrightnessDown exec ~/.config/sway/scripts/brightness.sh 5%-
 
-# DnD
+# Notification panel
     bindsym $mod+n exec swaync-client -t
     bindsym $mod+Shift+n exec swaync-client -d
-#
+
 # Moving around:
-#
     # Move your focus around
     bindsym $mod+$left focus left
     bindsym $mod+$down focus down
     bindsym $mod+$up focus up
     bindsym $mod+$right focus right
-    # Or use $mod+[up|down|left|right]
+    # Ditto
     bindsym $mod+Left focus left
     bindsym $mod+Down focus down
     bindsym $mod+Up focus up
@@ -155,15 +136,14 @@ input type:touchpad {
     bindsym $mod+Shift+$down move down
     bindsym $mod+Shift+$up move up
     bindsym $mod+Shift+$right move right
-    # Ditto, with arrow keys
+    # Ditto
     bindsym $mod+Shift+Left move left
     bindsym $mod+Shift+Down move down
     bindsym $mod+Shift+Up move up
     bindsym $mod+Shift+Right move right
-#
+
 # Workspaces:
-#
-    # Switch to workspace
+    # Switch workspace
     bindsym {
         $mod+Prior workspace prev
         $mod+Next workspace next
@@ -193,9 +173,8 @@ input type:touchpad {
         $mod+Shift+ccedilla move container to workspace 9; workspace 9
         $mod+Shift+agrave move container to workspace 10; workspace 10
     }
-#
-# Layout stuff:
-#
+
+### Layout stuff:
     # You can "split" the current object of your focus with
     # $mod+b or $mod+v, for horizontal and vertical splits
     # respectively.
@@ -222,25 +201,17 @@ input type:touchpad {
     bindsym $mod+a focus parent
     bindsym $mod+z focus child
 
-# Scratchpad:
+    # Scratchpad:
     bindsym $mod+x move scratchpad
     bindsym $mod+Tab scratchpad show
-#
-# Resizing containers:
-#
+
+### Resizing containers:
 mode "resize" {
-    # left will shrink the containers width
-    # right will grow the containers width
-    # up will shrink the containers height
-    # down will grow the containers height
     bindsym {
         $left resize shrink width 10px
         $down resize grow height 10px
         $up resize shrink height 10px
         $right resize grow width 10px
-    }
-    # Ditto, with arrow keys
-    bindsym {
         Left resize shrink width 10px
         Down resize grow height 10px
         Up resize shrink height 10px
@@ -252,8 +223,7 @@ mode "resize" {
 }
 bindsym $mod+r mode "resize"
 
-#
-# Status Bar:
-#
+### Status Bar:
 bar swaybar_command waybar
+
 include /etc/sway/config.d/*

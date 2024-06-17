@@ -36,13 +36,15 @@
         "format-source": "{volume}",
         "format-source-muted": "muted",
         "on-click": "pavucontrol",
+        "on-scroll-up": "~/.config/sway/scripts/volume.sh +5%",
+        "on-scroll-down": "~/.config/sway/scripts/volume.sh -5%",
         "on-click-middle": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
         "on-click-right": "pactl set-source-mute @DEFAULT_SOURCE@ toggle"
     },
     "backlight": {
         "format": "l:{percent}",
-        "on-scroll-up": "brightnessctl s 5%+",
-        "on-scroll-down": "brightnessctl s 5%-"
+        "on-scroll-up": "~/.config/sway/scripts/brightness.sh 5%+",
+        "on-scroll-down": "~/.config/sway/scripts/brightness.sh 5%-"
     },
     "network": {
         "interval": 1,

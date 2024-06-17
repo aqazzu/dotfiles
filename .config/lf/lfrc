@@ -2,11 +2,14 @@ set icons
 set period 1
 set scrolloff 8
 set sixel true
+set ifs "\n"
 
 # trash
 cmd trash %trash $fs
 map D trash
 
 # previewer
-set previewer ~/.config/lf/prv.sh
-map i $LESSOPEN='| ~/.config/lf/prv.sh %s' less -R $f
+set previewer ~/.config/lf/scripts/prv.sh
+#set cleaner ~/.config/lf/scripts/cln.sh
+#map C &~/.config/lf/scripts/cachetoggle.sh
+map i $LESSOPEN='| ~/.config/lf/scripts/prv.sh %s' less -R $f
