@@ -22,11 +22,11 @@ return require('packer').startup(function(use)
   use 'theprimeagen/harpoon'
   use 'mbbill/undotree'
   use 'tpope/vim-fugitive'
-  
+
   -- Lf integration (file manager)
   --use 'ptzz/lf.vim'
   --use 'voldikss/vim-floaterm'
-  
+
   -- lsp-zero, I hope I learn how to set this up myself someday TT
   use {
   'VonHeikemen/lsp-zero.nvim',
