@@ -182,12 +182,10 @@ input type:touchpad {
     #    $mod+b splith
     #    $mod+v splitv
     #}
+
     # Switch the current container between different layout styles
-    bindsym {
-        $mod+s layout stacking
-        $mod+w layout tabbed
-        $mod+e layout toggle split
-    }
+    bindsym $mod+s layout toggle split tabbed
+
     # Make the current focus fullscreen
     bindsym $mod+f fullscreen
 
@@ -227,6 +225,11 @@ mode "resize" {
 bindsym $mod+r mode "resize"
 
 ### Status Bar:
-bar swaybar_command waybar
+bar {
+    id main_bar
+    swaybar_command waybar
+    modifier none
+}
+bindsym $mod+w exec swaymsg bar mode toggle
 
 include /etc/sway/config.d/*

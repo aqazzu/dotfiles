@@ -2,6 +2,8 @@
     // bar config
     "position": "top",
     "height": 25,
+    "ipc": true,
+    "id": "main_bar",
     
     // choose the order of the modules
     "modules-left": ["sway/scratchpad", "sway/workspaces", "sway/mode"],
