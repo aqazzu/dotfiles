@@ -7,5 +7,5 @@ case $current_border_mode in
     *) border_mode=normal ;;
 esac
 
-swaymsg [workspace=__focused__] border $border_mode
-swaymsg [workspace=__focused__] default_border $border_mode
+swaymsg [workspace=.] border $border_mode
+swaymsg [workspace=.] default_border $border_mode

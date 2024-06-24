@@ -30,25 +30,24 @@
   padding: 0;
 }
 
-/* Uncomment to enable specific urgency colors
+/* Specific urgency colors */
 .low {
   background: yellow;
   padding: 6px;
   border-radius: 12px;
 }
 
-.normal {
+/* .normal {
   background: green;
   padding: 6px;
   border-radius: 12px;
-}
+}*/
 
 .critical {
   background: red;
   padding: 6px;
   border-radius: 12px;
 }
-*/
 
 .notification-content {
   background: transparent;
