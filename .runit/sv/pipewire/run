@@ -1,0 +1,13 @@
+#!/bin/sh
+
+exec 2>&1
+
+echo "Starting pipewire"
+exec pipewire &
+
+echo "Starting pipewire-pulse"
+exec pipewire -c /usr/share/pipewire/pipewire-pulse.conf &
+
+echo "Starting wireplumber"
+exec wireplumber
+

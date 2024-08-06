@@ -4,11 +4,16 @@
 ###
 
 ### Autostart
-exec swaync
+# user specific runit services
+exec runsvdir ~/.runit/runsvdir
+# services run by sway
 exec lxpolkit
-exec dex -a
+exec swaync
+exec ~/.config/sway/scripts/wob.sh
 exec wlsunset -S 08:00 -s 19:00 -t 5000 -d 1800
 exec ~/.azotebg
+# xdg autostart
+exec dex -a
 
 ### Variables
 set $mod Mod4
@@ -94,7 +99,8 @@ input type:touchpad {
     bindsym $mod+Shift+c reload
 
 # Power Menu
-    bindsym $mod+Shift+e exec swaynag -t warning -y overlay -e bottom -f mono -m 'Power Menu' -Z 'exit sway' 'swaymsg exit' -Z 'suspend' 'systemctl suspend' -Z 'hibernate' 'systemctl hibernate' -Z 'reboot' 'systemctl reboot' -Z 'shutdown' 'systemctl poweroff'
+    #bindsym $mod+Shift+e exec swaynag -t warning -y overlay -e bottom -f mono -m 'Power Menu' -Z 'exit sway' 'swaymsg exit' -Z 'suspend' 'systemctl suspend' -Z 'hibernate' 'systemctl hibernate' -Z 'reboot' 'systemctl reboot' -Z 'shutdown' 'systemctl poweroff'
+    bindsym $mod+Shift+e exec swaynag -t warning -y overlay -e bottom -f mono -m 'Power Menu' -Z 'exit sway' 'swaymsg exit' -Z 'suspend' 'loginctl suspend' -Z 'hibernate' 'loginctl hibernate' -Z 'reboot' 'loginctl reboot' -Z 'shutdown' 'loginctl poweroff'
 
 # Screenshots
     bindsym Print exec ~/.config/sway/scripts/screenshot.sh fullscreen
