@@ -22,31 +22,64 @@
         "tooltip": false,
         "return-type": "json",
         "exec-if": "which swaync-client",
-        "exec": "swaync-client -swb",
+        "exec": "pkill swaync-client; swaync-client -swb",
         "on-click": "swaync-client -t -sw",
         "on-click-middle": "swaync-client -d -sw",
         "escape": true
     },
     "sway/workspaces": {
-        "format": "w{name}",
+        "format": "{icon} {name}",
+        "format-icons": {
+            "default": "󰋜",
+            "1": "󰶀",
+            "2": "󰶁",
+            "3": "󰶂",
+            "4": "󰷔",
+            "5": "󰷔",
+            "6": "󰷔",
+            "7": "󰷔",
+            "8": "󰷔",
+            "9": "󰷔",
+            "10": "󰷔",
+        },
         "enable-bar-scroll": true
     },
     "sway/scratchpad": {
-        "format": "x{count}",
+        "format": " {count}",
         "show-empty": true,
         "tooltip": false
     },
     "clock": {
         "interval": 1,
         "format": "{:%H:%M}",
-        "tooltip-format": "{:%a %d %b}"
+        "tooltip-format": "{calendar}",
+        "calendar": {
+            "mode": "month",
+            "mode-mon-col": 3,
+            "weeks-pos": "left",
+            "on-scroll": 1,
+            "format": {
+                "months": "<span color='#747264'><b>{}</b></span>",
+                "days": "<span color='#EEEDEB'><b>{}</b></span>",
+                "weeks": "<span color='#70A1D7'><b>W{}</b></span>",
+                "weekdays": "<span color='#E0CCBE'><b>{}</b></span>",
+                "today": "<span color='#F47C7C'><b><u>{}</u></b></span>"
+            }
+        },
+        "actions": {
+            "on-click-right": "shift_reset",
+            "on-scroll-up": "shift_down",
+            "on-scroll-down": "shift_up"
+        }
     },
     "pulseaudio": {
         "scroll-step": 5.0,
-        "format": "s:{volume} m:{format_source}",
-        "format-muted": "s:muted m:{format_source}",
-        "format-source": "{volume}",
-        "format-source-muted": "muted",
+        "format": "{icon}:{volume} {format_source}",
+        "format": "󰂯:{volume} {format_source}",
+        "format-muted": ":{volume} {format_source}",
+        "format-icons": ["", "", ""],
+        "format-source": "󰍬:{volume}",
+        "format-source-muted": "󰍭:{volume}",
         "on-click": "pavucontrol",
         "on-scroll-up": "~/.config/sway/scripts/volume.sh +5%",
         "on-scroll-down": "~/.config/sway/scripts/volume.sh -5%",
@@ -54,25 +87,30 @@
         "on-click-right": "pactl set-source-mute @DEFAULT_SOURCE@ toggle"
     },
     "backlight": {
-        "format": "l:{percent}",
+        "format": "{icon}:{percent}",
+        "format-icons": ["󱩎", "󱩏", "󱩐", "󱩑", "󱩒", "󱩓", "󱩔", "󱩕", "󱩖", "󰛨"],
         "on-scroll-up": "~/.config/sway/scripts/brightness.sh 5%+",
         "on-scroll-down": "~/.config/sway/scripts/brightness.sh 5%-"
     },
     "network": {
         "interval": 1,
-        "format": "connected:{ifname}",
-        "tooltip-format": "up:{bandwidthUpBytes} down:{bandwidthDownBytes}",
-        "format-wifi": "wifi:{essid}",
-        "format-ethernet": "ethernet",
-        "format-disconnected": "disconnected",
+        "format": "󰛳:{ifname}",
+        "tooltip-format": ":{bandwidthUpBytes} :{bandwidthDownBytes}",
+        "format-wifi": "󰀂:{essid}",
+        "format-ethernet": "󰛳",
+        "format-disconnected": "󰲛",
         "tooltip-format-disconnected": "disconnected"
     },
     "battery": {
-        "format": "b:{capacity}",
-	    "interval": 1
+        "format": "{icon}:{capacity}",
+	    "format-icons": {
+            "default": ["󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
+            "plugged": ["󰢜", "󰂆", "󰂇", "󰂈", "󰢝", "󰂉", "󰢞", "󰂊", "󰂋", "󰂅"]
+        },
+        "interval": 1
     },
     "sway/language": {
-        "format": "k:{shortDescription}",
+        "format": "󰼭:{shortDescription}",
         "tooltip-format": "{long}",
         "on-click": "swaymsg input '1:1:AT_Translated_Set_2_keyboard' xkb_switch_layout next"
     },
@@ -81,5 +119,17 @@
         "show-passive-items": true,
         "spacing": 5,
         "reverse-direction": true
+    },
+    "custom/maghreb": {
+        "format": "󱙧",
+        "on-click": "mpv --no-video ~/.config/waybar/easter_eggs/morocco.ogg",
+        "tooltip": true,
+        "tooltip-format": "ٱللَّٰه، ٱلْوَطَن، ٱلْمَلِك"
+    },
+    "custom/tamazight": {
+        "format": "ⵣ",
+        "on-click": "mpv --no-video ~/.config/waybar/easter_eggs/asays.opus",
+        "tooltip": true,
+        "tooltip-format": "ⵜⴰⵎⴰⵣⵉⵖⵜ ⵜⵓⵜⵍⴰⵢⵜⵉⵏⵓ, ⵜⵉⴼⵉⵏⴰⵖ ⵜⵉⵔⵔⴰⵏⵓ"
     }
 }

@@ -108,3 +108,25 @@ button:hover {
 #custom-swaync {
     margin-right: 0;
 }
+
+#custom-maghreb {
+    color: #006233;
+    background: #c1272d;
+    padding: 1px;
+    border: 2px solid #fdb913;
+}
+
+#custom-tamazight {
+    color: #CC0033;
+    background: linear-gradient(
+        to bottom,
+        #0090DA 0%,
+        #0090DA 33.33%,
+        #78BE20 33.33%,
+        #78BE20 66.66%,
+        #FEDD00 66.66%,
+        #FEDD00 100%
+    );
+    padding: 1px 3px 1px 3px;
+    border: 2px solid #CC0033;
+}
