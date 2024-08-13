@@ -2,12 +2,16 @@
 
 # A hook for loginctl
 # Copy the script to /lib/elogind/system-sleep
+# Don't forget to pass these variables
+export WAYLAND_DISPLAY=wayland-?
+export XDG_RUNTIME_DIR=/run/user/????
+export USER=
 
 lock() {
     IMG=/tmp/lock.png
     /usr/bin/grim -c $IMG
     /usr/bin/convert $IMG -resize 10% -blur 0x2 $IMG
-    /usr/bin/swaylock -i $IMG
+    sudo -Eu $USER /usr/bin/swaylock -fi $IMG
 }
 
 case $# in
@@ -27,7 +31,6 @@ case $# in
     case $1 in
         pre)
             lock
-            sleep 1s
             ;;
         post)
             MSG="You've put your computer on $2"
