@@ -99,12 +99,14 @@
         "format-wifi": "󰀂:{essid}",
         "format-ethernet": "󰛳",
         "format-disconnected": "󰲛",
-        "tooltip-format-disconnected": "disconnected"
+        "tooltip-format-disconnected": "disconnected",
+        "on-click": "cmst"
     },
     "battery": {
         "format": "{icon}:{capacity}",
 	    "format-icons": {
             "default": ["󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
+            "charging": ["󰢜", "󰂆", "󰂇", "󰂈", "󰢝", "󰂉", "󰢞", "󰂊", "󰂋", "󰂅"],
             "plugged": ["󰢜", "󰂆", "󰂇", "󰂈", "󰢝", "󰂉", "󰢞", "󰂊", "󰂋", "󰂅"]
         },
         "interval": 1
