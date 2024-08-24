@@ -17,8 +17,10 @@ fullscreen(){
 
 region(){
     grim -c -g "$(slurp -d)" $IMG
-    wl-copy < $IMG
-    notify
+    if [ $? -eq 0 ]; then
+        wl-copy < $IMG
+        notify
+    fi
 }
 
 $COMMAND
