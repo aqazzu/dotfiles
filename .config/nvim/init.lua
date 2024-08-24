@@ -1,1 +1,1 @@
-require("rikou")
+require("config")

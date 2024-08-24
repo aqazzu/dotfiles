@@ -1,5 +1,5 @@
-require("rikou.keym")
-require("rikou.set")
+require("config.keym")
+require("config.set")
 
 vim.o.termguicolors = true
 vim.cmd.colorscheme "melange"
