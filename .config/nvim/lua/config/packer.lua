@@ -18,8 +18,7 @@ return require('packer').startup(function(use)
 	  run = ':TSUpdate'
   }
   use 'nvim-treesitter/playground'
-  -- best navigation tool, like ever
-  use 'theprimeagen/harpoon'
+  use 'theprimeagen/harpoon' -- best navigation tool, like ever
   use 'mbbill/undotree'
   use 'tpope/vim-fugitive'
 
@@ -29,18 +28,18 @@ return require('packer').startup(function(use)
 
   -- lsp-zero, I hope I learn how to set this up myself someday TT
   use {
-  'VonHeikemen/lsp-zero.nvim',
-  branch = 'v3.x',
-  requires = {
-    {'williamboman/mason.nvim'},
-    {'williamboman/mason-lspconfig.nvim'},
+      'VonHeikemen/lsp-zero.nvim',
+      branch = 'v3.x',
+      requires = {
+        {'williamboman/mason.nvim'},
+        {'williamboman/mason-lspconfig.nvim'},
 
-    -- LSP Support
-    {'neovim/nvim-lspconfig'},
-    -- Autocompletion
-    {'hrsh7th/nvim-cmp'},
-    {'hrsh7th/cmp-nvim-lsp'},
-    {'L3MON4D3/LuaSnip'},
-  }
-}
+        -- LSP Support
+        {'neovim/nvim-lspconfig'},
+        -- Autocompletion
+        {'hrsh7th/nvim-cmp'},
+        {'hrsh7th/cmp-nvim-lsp'},
+        {'L3MON4D3/LuaSnip'},
+      }
+    }
 end)
