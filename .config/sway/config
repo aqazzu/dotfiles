@@ -103,116 +103,120 @@ input type:touchpad {
     bindsym $mod+Shift+e exec swaynag -t warning -y overlay -e bottom -f mono -m 'Power Menu' -Z 'exit sway' 'swaymsg exit' -Z 'suspend' 'loginctl suspend' -Z 'hibernate' 'loginctl hibernate' -Z 'reboot' 'loginctl reboot' -Z 'shutdown' 'loginctl poweroff'
 
 # Screenshots
-    bindsym Print exec ~/.config/sway/scripts/screenshot.sh fullscreen
-    bindsym $mod+Print exec ~/.config/sway/scripts/screenshot.sh region
+bindsym {
+    Print exec ~/.config/sway/scripts/screenshot.sh fullscreen
+    $mod+Print exec ~/.config/sway/scripts/screenshot.sh region
+}
 
 # Clipboard history
-    bindsym $mod+c exec wl-paste | cat - ~/.clipboard > ~/.clipboard_tmp && mv ~/.clipboard_tmp ~/.clipboard
-    bindsym $mod+v exec cat ~/.clipboard | $dmenu | wl-copy -n
-
+bindsym {
+    $mod+c exec ~/.config/sway/scripts/clipboard.sh save
+    $mod+v exec ~/.config/sway/scripts/clipboard.sh get "$dmenu"
+}
 # Volume control
-    bindsym XF86AudioPlay exec playerctl play-pause
-    bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
-    bindsym XF86AudioRaiseVolume exec ~/.config/sway/scripts/volume.sh +5%
-    bindsym XF86AudioLowerVolume exec ~/.config/sway/scripts/volume.sh -5%
-    bindsym XF86AudioMicMute exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
+bindsym {
+    XF86AudioPlay exec playerctl play-pause
+    XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
+    XF86AudioRaiseVolume exec ~/.config/sway/scripts/volume.sh +5%
+    XF86AudioLowerVolume exec ~/.config/sway/scripts/volume.sh -5%
+    XF86AudioMicMute exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
+}
 
 # Brightness control
-    bindsym XF86MonBrightnessUp exec ~/.config/sway/scripts/brightness.sh 5%+
-    bindsym XF86MonBrightnessDown exec ~/.config/sway/scripts/brightness.sh 5%-
+bindsym {
+    XF86MonBrightnessUp exec ~/.config/sway/scripts/brightness.sh 5%+
+    XF86MonBrightnessDown exec ~/.config/sway/scripts/brightness.sh 5%-
+}
 
 # Notification panel
-    bindsym $mod+n exec swaync-client -t
-    bindsym $mod+Shift+n exec swaync-client -d
+bindsym {
+    $mod+n exec swaync-client -t
+    $mod+Shift+n exec swaync-client -d
+}
 
-# Moving around:
+### Moving around:
+bindsym {
     # Move your focus around
-    bindsym $mod+$left focus left
-    bindsym $mod+$down focus down
-    bindsym $mod+$up focus up
-    bindsym $mod+$right focus right
+    $mod+$left focus left
+    $mod+$down focus down
+    $mod+$up focus up
+    $mod+$right focus right
     # Ditto
-    bindsym $mod+Left focus left
-    bindsym $mod+Down focus down
-    bindsym $mod+Up focus up
-    bindsym $mod+Right focus right
+    $mod+Left focus left
+    $mod+Down focus down
+    $mod+Up focus up
+    $mod+Right focus right
 
-    # Move the focused window with the same, but add Shift
-    bindsym $mod+Shift+$left move left
-    bindsym $mod+Shift+$down move down
-    bindsym $mod+Shift+$up move up
-    bindsym $mod+Shift+$right move right
+    # Move your focused window
+    $mod+Shift+$left move left
+    $mod+Shift+$down move down
+    $mod+Shift+$up move up
+    $mod+Shift+$right move right
     # Ditto
-    bindsym $mod+Shift+Left move left
-    bindsym $mod+Shift+Down move down
-    bindsym $mod+Shift+Up move up
-    bindsym $mod+Shift+Right move right
-
-# Workspaces:
+    $mod+Shift+Left move left
+    $mod+Shift+Down move down
+    $mod+Shift+Up move up
+    $mod+Shift+Right move right
+}
+### Workspaces:
+bindsym {
     # Switch workspace
-    bindsym {
-        $mod+Prior workspace prev
-        $mod+Next workspace next
-        $mod+ampersand workspace 1
-        $mod+eacute workspace 2
-        $mod+quotedbl workspace 3
-        $mod+apostrophe workspace 4
-        $mod+parenleft workspace 5
-        $mod+minus workspace 6
-        $mod+egrave workspace 7
-        $mod+underscore workspace 8
-        $mod+ccedilla workspace 9
-        $mod+agrave workspace 10
-    }
+    $mod+Prior workspace prev
+    $mod+Next workspace next
+    $mod+ampersand workspace 1
+    $mod+eacute workspace 2
+    $mod+quotedbl workspace 3
+    $mod+quoteright workspace 4
+    $mod+parenleft workspace 5
+    $mod+minus workspace 6
+    $mod+egrave workspace 7
+    $mod+underscore workspace 8
+    $mod+ccedilla workspace 9
+    $mod+agrave workspace 10
+
     # Move focused container to workspace
-    bindsym {
-        $mod+Shift+Prior move container to workspace prev; workspace prev 
-        $mod+Shift+Next move container to workspace next; workspace next
-        $mod+Shift+ampersand move container to workspace 1; workspace 1
-        $mod+Shift+eacute move container to workspace 2; workspace 2
-        $mod+Shift+quotedbl move container to workspace 3; workspace 3
-        $mod+Shift+apostrophe move container to workspace 4; workspace 4
-        $mod+Shift+parenleft move container to workspace 5; workspace 5
-        $mod+Shift+minus move container to workspace 6; workspace 6
-        $mod+Shift+egrave move container to workspace 7; workspace 7
-        $mod+Shift+underscore move container to workspace 8; workspace 8
-        $mod+Shift+ccedilla move container to workspace 9; workspace 9
-        $mod+Shift+agrave move container to workspace 10; workspace 10
-    }
+    $mod+Shift+Prior move container to workspace prev; workspace prev 
+    $mod+Shift+Next move container to workspace next; workspace next
+    $mod+Shift+ampersand move container to workspace 1; workspace 1
+    $mod+Shift+eacute move container to workspace 2; workspace 2
+    $mod+Shift+quotedbl move container to workspace 3; workspace 3
+    $mod+Shift+quoteright move container to workspace 4; workspace 4
+    $mod+Shift+parenleft move container to workspace 5; workspace 5
+    $mod+Shift+minus move container to workspace 6; workspace 6
+    $mod+Shift+egrave move container to workspace 7; workspace 7
+    $mod+Shift+underscore move container to workspace 8; workspace 8
+    $mod+Shift+ccedilla move container to workspace 9; workspace 9
+    $mod+Shift+agrave move container to workspace 10; workspace 10
+}
 
 ### Layout stuff:
-    # You can "split" the current object of your focus with
-    # $mod+b or $mod+v, for horizontal and vertical splits
-    # respectively.
-    #bindsym {
-    #    $mod+b splith
-    #    $mod+v splitv
-    #}
-
+bindsym {
     # Switch the current container between different layout styles
-    bindsym $mod+s layout toggle split tabbed
+    $mod+s layout toggle split tabbed
 
     # Make the current focus fullscreen
-    bindsym $mod+f fullscreen
+    $mod+f fullscreen
 
     # Toggle the current focus between tiling and floating mode
-    bindsym $mod+space floating toggle
+    $mod+space floating toggle
 
     # Swap focus between the tiling area and the floating area
-    bindsym $mod+Shift+f focus mode_toggle
+    $mod+Shift+f focus mode_toggle
 
     # Move focus to the parent/child container
-    bindsym $mod+a focus parent
-    bindsym $mod+z focus child
+    $mod+a focus parent
+    $mod+z focus child
 
     # Scratchpad:
-    bindsym $mod+x move scratchpad
-    bindsym $mod+Tab scratchpad show
+    $mod+x move scratchpad
+    $mod+Tab scratchpad show
 
     # Hide titlebar:
-    bindsym $mod+b exec ~/.config/sway/scripts/border.sh
+    $mod+b exec ~/.config/sway/scripts/border.sh
+}
 
 ### Resizing containers:
+bindsym $mod+r mode "resize"
 mode "resize" {
     bindsym {
         $left resize shrink width 10px
@@ -223,12 +227,11 @@ mode "resize" {
         Down resize grow height 10px
         Up resize shrink height 10px
         Right resize grow width 10px
+        # Return to default mode
+        Return mode "default"
+        Escape mode "default"
     }
-    # Return to default mode
-    bindsym Return mode "default"
-    bindsym Escape mode "default"
 }
-bindsym $mod+r mode "resize"
 
 ### Status Bar:
 bar {
