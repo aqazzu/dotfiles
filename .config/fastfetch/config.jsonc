@@ -1,21 +1,76 @@
 {
   "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json",
+  "display": {
+      "separator": " -> ",
+      "bar": {
+            "charElapsed": "■",
+            "charTotal": "-",
+            "borderLeft": "[ ",
+            "borderRight": " ]",
+            "width": 10
+      }
+  },
   "modules": [
-    "title",
-    "separator",
-    "os",
-    "kernel",
-    "initsystem",
-    "uptime",
-    "separator",
-    "shell",
-    "de",
-    "wm",
-    "terminal",
-    "separator",
-    "memory",
-    "swap",
-    "disk",
+    {
+        "type": "title",
+        "format":"{#red}  {user-name-colored}{at-symbol-colored}{host-name-colored}"
+    },
+    "break",
+    {
+        "type": "os",
+        "format": "{name} {codename} {version} {arch}",
+        "key": "╭"
+    },
+    {
+        "type":"kernel",
+        "format": "{sysname} {release}",
+        "key": "├"
+    },
+    {
+        "type": "initsystem",
+        "format": "{name} PID: {pid}",
+        "key": "├"
+    },
+    {
+        "type": "shell",
+        "format": "{pretty-name} {version} TTY: {tty}",
+        "key": "╰"
+    },
+    "break",
+    {
+        "type": "wm",
+        "key": "╭"
+    },
+    {
+        "type": "de",
+        "key": "├"
+    },
+    {
+        "type": "terminal",
+        "format": "{pretty-name} {version} TTY: {tty}",
+        "key": "╰"
+    },
+    "break",
+    {
+        "type": "memory",
+        "format": "{percentage}:{percentage-bar} | {used}/{total}",
+        "key": "╭"
+    },
+    {
+        "type": "swap",
+        "format": "{percentage}:{percentage-bar} | {used}/{total}",
+        "key": "├"
+    },
+    {
+        "type": "disk",
+        "format": "{size-percentage}:{size-percentage-bar} | {size-used}/{size-total} {filesystem}",
+        "key": "├"
+    },
+    {
+        "type": "uptime",
+        "format": "{days}d {hours}h {minutes}m",
+        "key": "╰"
+    },
     "break",
     "colors"
   ]
