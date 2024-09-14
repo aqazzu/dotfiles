@@ -3,6 +3,9 @@ set period 1
 set scrolloff 8
 set sixel true
 set ifs "\n"
+set cursoractivefmt "\033[7;7m"
+set cursorparentfmt "\033[7;7m"
+set cursorpreviewfmt "\033[7;7m"
 
 # trash
 cmd trash %trash $fs
@@ -10,6 +13,6 @@ map D trash
 
 # previewer
 set previewer ~/.config/lf/scripts/prv.sh
-#set cleaner ~/.config/lf/scripts/cln.sh
-#map C &~/.config/lf/scripts/cachetoggle.sh
-map i $LESSOPEN='| ~/.config/lf/scripts/prv.sh %s' less -R $f
+set cleaner ~/.config/lf/scripts/cln.sh
+map C &~/.config/lf/scripts/cachetoggle.sh
+map i $LESSOPEN='| ~/.config/lf/scripts/prv.sh %s' less -r $f
