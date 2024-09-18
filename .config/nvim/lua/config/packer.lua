@@ -29,7 +29,7 @@ return require('packer').startup(function(use)
   -- lsp-zero, I hope I learn how to set this up myself someday TT
   use {
       'VonHeikemen/lsp-zero.nvim',
-      branch = 'v3.x',
+      branch = 'v4.x',
       requires = {
         {'williamboman/mason.nvim'},
         {'williamboman/mason-lspconfig.nvim'},
