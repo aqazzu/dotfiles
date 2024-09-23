@@ -1,11 +1,16 @@
 #!/bin/sh
 
+#Depends on: dwebp, inkscape, pdftoppm, img2sixel, ffmpegthumbnailer, blender-thumbnailer
+
 file=$1
 #mimetype=$(file -Lb --mime-type -- "$file")
 cacheroot="/home/rikou/.cache/lf"
 cache="$cacheroot$file.sixel"
 cachedir="$(dirname "$cache")"
 cachebit="$cacheroot/cache"
+imagecmd="img2sixel"
+imageopth="-q low -h 500"
+imageoptw="-q low -w 500"
 
 caching_img () {
 if [ ! -e "$cache" ]
@@ -13,17 +18,18 @@ then
     mkdir -p "$cachedir"
     touch "$cache"
     case "$file" in
-    *.jpg|*.jpeg|*.png|*.bmp) img2sixel -q low -h 500 "$file" > "$cache";;
-    *.webp) dwebp -quiet "$file" -o /dev/stdout | img2sixel -q low -h 500 > "$cache";;
+    *.jpg|*.jpeg|*.png|*.bmp) $imagecmd $imageopth "$file" > "$cache";;
+    *.webp) dwebp -quiet "$file" -o /dev/stdout | $imagecmd $imageopth > "$cache";;
+    *.svg) inkscape "$file" --export-type=png -o - | $imagecmd $imageopth > "$cache";;
     *.pdf)
         pdftoppm -f 1 -l 1                   \
                  -singlefile                 \
                  -jpeg -tiffcompression jpeg \
                  -- "$file"                  \
-        | img2sixel -q low -w 500 > "$cache"
+        | $imagecmd $imageoptw > "$cache"
         ;;
-    *.mp4|*.mkv|*.mp3|*.m4a|*.flac) ffmpegthumbnailer -i "$file" -o /dev/stdout -s 0 | img2sixel -q low -h 500 > "$cache";;
-    *.blend) blender-thumbnailer "$file" /dev/stdout | img2sixel -q low -h 500 > "$cache";;
+    *.mp4|*.mkv|*.mp3|*.m4a|*.flac) ffmpegthumbnailer -i "$file" -o /dev/stdout -s 0 | $imagecmd $imageopth > "$cache";;
+    *.blend) blender-thumbnailer "$file" /dev/stdout | $imagecmd $imageopth > "$cache";;
     *) echo "Something wrong happened, fix your preview script at: ~/.config/prv.sh!" > "$cache";;
     esac
     cat "$cache"
@@ -33,7 +39,7 @@ fi
 }
 
 case "$file" in
-    *.jpg|*.jpeg|*.png|*.bmp|*.webp|*.pdf|*.mp4|*.mkv|*.mp3|*.m4a|*.flac|*.blend) caching_img;;
+    *.jpg|*.jpeg|*.png|*.bmp|*.webp|*.svg|*.pdf|*.mp4|*.mkv|*.mp3|*.m4a|*.flac|*.blend) caching_img;;
     *.sixel) cat "$1";;
     *.tar*) tar -tf "$file";;
     *.zip) unzip -l "$file";;
