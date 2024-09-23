@@ -35,6 +35,7 @@ sg      g       # SETGID
 ex             # EXEC
 fi             # FILE
 
+~/bookmarks 
 ~/desk      
 ~/docs      󱔘
 ~/downloads 
