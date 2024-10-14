@@ -1,6 +1,21 @@
 #!/bin/sh
 
-#Depends on: dwebp, inkscape, pdftoppm, img2sixel, ffmpegthumbnailer, blender-thumbnailer
+#Depends on:
+# - cat
+# - dirname
+# - touch
+# - dwebp
+# - inkscape
+# - pdftoppm
+# - img2sixel
+# - ffmpegthumbnailer
+# - blender-thumbnailer
+# - dpkg-deb
+# - highlight
+# - 7z
+# - unzip
+# - unrar
+# - tar
 
 file=$1
 #mimetype=$(file -Lb --mime-type -- "$file")
@@ -13,8 +28,7 @@ imageopth="-q low -h 500"
 imageoptw="-q low -w 500"
 
 caching_img () {
-if [ ! -e "$cache" ]
-then
+if [ ! -e "$cache" ]; then
     mkdir -p "$cachedir"
     touch "$cache"
     case "$file" in
@@ -32,15 +46,23 @@ then
     *.blend) blender-thumbnailer "$file" /dev/stdout | $imagecmd $imageopth > "$cache";;
     *) echo "Something wrong happened, fix your preview script at: ~/.config/prv.sh!" > "$cache";;
     esac
+fi
+
+if [ "$DISPLAY" ]; then
     cat "$cache"
 else
-    cat "$cache"
+    echo "Cannot display Sixel!"
 fi
 }
 
 case "$file" in
     *.jpg|*.jpeg|*.png|*.bmp|*.webp|*.svg|*.pdf|*.mp4|*.mkv|*.mp3|*.m4a|*.flac|*.blend) caching_img;;
-    *.sixel) cat "$1";;
+    *.sixel) 
+        if [ "$DISPLAY" ]; then
+            cat "$1"
+        else
+            echo "Cannot display Sixel!"
+        fi;;
     *.tar*) tar -tf "$file";;
     *.zip) unzip -l "$file";;
     *.rar) unrar l "$file";;
