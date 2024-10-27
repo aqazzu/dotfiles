@@ -1,8 +1,3 @@
-### TODO
-# add --to-code in front of bindsym after sway update 1.9
-# github issue: https://github.com/swaywm/sway/issues/7535
-###
-
 ### Autostart
 # user specific runit services
 exec runsvdir ~/.runit/runsvdir
@@ -83,38 +78,38 @@ input type:touchpad {
 
 ### Key bindings
 # Start a terminal
-    bindsym $mod+Return exec $term
+    bindsym --to-code $mod+Return exec $term
 
 # Kill focused window
-    bindsym $mod+Shift+q kill
+    bindsym --to-code $mod+Shift+q kill
 
 # Start your launcher
-    bindsym $mod+d exec $menu
-    bindsym XF86Search exec $menu
+    bindsym --to-code $mod+d exec $menu
+    bindsym --to-code XF86Search exec $menu
 
 # Mouse button for drag and resize
     floating_modifier $mod normal
 
 # Reload the configuration file
-    bindsym $mod+Shift+c reload
+    bindsym --to-code $mod+Shift+c reload
 
 # Power Menu
-    #bindsym $mod+Shift+e exec swaynag -t warning -y overlay -e bottom -f mono -m 'Power Menu' -Z 'exit sway' 'swaymsg exit' -Z 'suspend' 'systemctl suspend' -Z 'hibernate' 'systemctl hibernate' -Z 'reboot' 'systemctl reboot' -Z 'shutdown' 'systemctl poweroff'
-    bindsym $mod+Shift+e exec swaynag -t warning -y overlay -e bottom -f mono -m 'Power Menu' -Z 'exit sway' 'swaymsg exit' -Z 'suspend' 'loginctl suspend' -Z 'hibernate' 'loginctl hibernate' -Z 'reboot' 'loginctl reboot' -Z 'shutdown' 'loginctl poweroff'
+    #bindsym --to-code $mod+Shift+e exec swaynag -t warning -y overlay -e bottom -f mono -m 'Power Menu' -Z 'exit sway' 'swaymsg exit' -Z 'suspend' 'systemctl suspend' -Z 'hibernate' 'systemctl hibernate' -Z 'reboot' 'systemctl reboot' -Z 'shutdown' 'systemctl poweroff'
+    bindsym --to-code $mod+Shift+e exec swaynag -t warning -y overlay -e bottom -f mono -m 'Power Menu' -Z 'exit sway' 'swaymsg exit' -Z 'suspend' 'loginctl suspend' -Z 'hibernate' 'loginctl hibernate' -Z 'reboot' 'loginctl reboot' -Z 'shutdown' 'loginctl poweroff'
 
 # Screenshots
-bindsym {
+bindsym --to-code {
     Print exec ~/.config/sway/scripts/screenshot.sh fullscreen
     $mod+Print exec ~/.config/sway/scripts/screenshot.sh region
 }
 
 # Clipboard history
-bindsym {
+bindsym --to-code {
     $mod+c exec ~/.config/sway/scripts/clipboard.sh save
     $mod+v exec ~/.config/sway/scripts/clipboard.sh get "$dmenu"
 }
 # Volume control
-bindsym {
+bindsym --to-code {
     XF86AudioPlay exec playerctl play-pause
     XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
     XF86AudioRaiseVolume exec ~/.config/sway/scripts/volume.sh +5%
@@ -123,19 +118,19 @@ bindsym {
 }
 
 # Brightness control
-bindsym {
+bindsym --to-code {
     XF86MonBrightnessUp exec ~/.config/sway/scripts/brightness.sh 5%+
     XF86MonBrightnessDown exec ~/.config/sway/scripts/brightness.sh 5%-
 }
 
 # Notification panel
-bindsym {
+bindsym --to-code {
     $mod+n exec swaync-client -t
     $mod+Shift+n exec swaync-client -d
 }
 
 ### Moving around:
-bindsym {
+bindsym --to-code {
     # Move your focus around
     $mod+$left focus left
     $mod+$down focus down
@@ -159,7 +154,7 @@ bindsym {
     $mod+Shift+Right move right
 }
 ### Workspaces:
-bindsym {
+bindsym --to-code {
     # Switch workspace
     $mod+Prior workspace prev
     $mod+Next workspace next
@@ -190,7 +185,7 @@ bindsym {
 }
 
 ### Layout stuff:
-bindsym {
+bindsym --to-code {
     # Switch the current container between different layout styles
     $mod+s layout toggle split tabbed
 
@@ -216,9 +211,9 @@ bindsym {
 }
 
 ### Resizing containers:
-bindsym $mod+r mode "resize"
+bindsym --to-code $mod+r mode "resize"
 mode "resize" {
-    bindsym {
+    bindsym --to-code {
         $left resize shrink width 10px
         $down resize grow height 10px
         $up resize shrink height 10px
@@ -239,6 +234,6 @@ bar {
     swaybar_command waybar
     modifier none
 }
-bindsym $mod+w exec swaymsg bar mode toggle
+bindsym --to-code $mod+w exec swaymsg bar mode toggle
 
 include /etc/sway/config.d/*
