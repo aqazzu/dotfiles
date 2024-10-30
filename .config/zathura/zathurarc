@@ -1,0 +1,13 @@
+# theme
+set default-bg \#EEEDEB
+set default-fg \#3C3633
+
+# themed recolor
+set recolor-keephue true
+set recolor-lightcolor \#3C3633
+set recolor-darkcolor \#EEEDEB
+set recolor-reverse-video true
+
+# Inverse Search support for texlab lsp
+set synctex true
+set synctex-editor-command "texlab inverse-search -i %{input} -l %{line}"
