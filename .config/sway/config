@@ -223,8 +223,7 @@ mode "resize" {
         Up resize shrink height 10px
         Right resize grow width 10px
         # Return to default mode
-        Return mode "default"
-        Escape mode "default"
+        q mode "default"
     }
 }
 
