@@ -188,6 +188,7 @@ bindsym --to-code {
 bindsym --to-code {
     # Switch the current container between different layout styles
     $mod+s layout toggle split tabbed
+    $mod+Shift+s layout toggle split
 
     # Make the current focus fullscreen
     $mod+f fullscreen
