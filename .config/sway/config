@@ -95,7 +95,7 @@ input type:touchpad {
 
 # Power Menu
     #bindsym --to-code $mod+Shift+e exec swaynag -t warning -y overlay -e bottom -f mono -m 'Power Menu' -Z 'exit sway' 'swaymsg exit' -Z 'suspend' 'systemctl suspend' -Z 'hibernate' 'systemctl hibernate' -Z 'reboot' 'systemctl reboot' -Z 'shutdown' 'systemctl poweroff'
-    bindsym --to-code $mod+Shift+e exec swaynag -t warning -y overlay -e bottom -f mono -m 'Power Menu' -Z 'exit sway' 'swaymsg exit' -Z 'suspend' 'loginctl suspend' -Z 'hibernate' 'loginctl hibernate' -Z 'reboot' 'loginctl reboot' -Z 'shutdown' 'loginctl poweroff'
+    bindsym --to-code $mod+Shift+e exec ~/.config/sway/scripts/power_menu.sh "swaynag"
 
 # Screenshots
 bindsym --to-code {
