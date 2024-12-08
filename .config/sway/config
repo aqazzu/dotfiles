@@ -184,6 +184,13 @@ bindsym --to-code {
     $mod+Shift+agrave move container to workspace 10; workspace 10
 }
 
+bindgesture {
+    swipe:3:right workspace prev
+    swipe:3:left workspace next
+    hold:2 floating toggle
+    hold:3 fullscreen toggle
+}
+
 ### Layout stuff:
 bindsym --to-code {
     # Switch the current container between different layout styles
@@ -192,6 +199,9 @@ bindsym --to-code {
 
     # Make the current focus fullscreen
     $mod+f fullscreen
+
+    # Toggle sticky/pin for a floating window
+    $mod+p sticky toggle
 
     # Toggle the current focus between tiling and floating mode
     $mod+space floating toggle
