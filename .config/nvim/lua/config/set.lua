@@ -2,7 +2,8 @@ vim.opt.nu = true
 vim.opt.relativenumber = true
 
 vim.opt.smartindent = true
-vim.opt.wrap = false
+vim.opt.wrap = true
+vim.opt.linebreak = true
 vim.opt.signcolumn = "yes"
 vim.opt.scrolloff = 8
 vim.opt.colorcolumn = "80"
