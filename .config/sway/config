@@ -184,12 +184,12 @@ bindsym --to-code {
     $mod+Shift+agrave move container to workspace 10; workspace 10
 }
 
-bindgesture {
-    swipe:3:right workspace prev
-    swipe:3:left workspace next
-    hold:2 floating toggle
-    hold:3 fullscreen toggle
-}
+#bindgesture {
+#    swipe:3:right workspace prev
+#    swipe:3:left workspace next
+#    hold:2 floating toggle
+#    hold:3 fullscreen toggle
+#}
 
 ### Layout stuff:
 bindsym --to-code {
