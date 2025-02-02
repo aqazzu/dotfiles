@@ -17,8 +17,9 @@ set $down j
 set $up k
 set $right l
 set $term foot
-set $dmenu fuzzel -d
+set $dmenu rofi -dmenu
 set $menu fuzzel
+set $menu2 rofi -show drun -matching fuzzy
 
 ### Themeing
 set $lighter EEEDEB
@@ -35,6 +36,8 @@ client.focused $darker $light $darker $light
 client.focused_inactive $darker $dark $lighter $light
 client.unfocused $darker $dark $lighter $light
 client.urgent $darker $red $darker $light
+
+hide_edge_borders --i3 none
 
 for_window [window_type="dialog"] floating enable
 for_window [window_type="splash"] floating enable
@@ -63,8 +66,8 @@ for_window [window_role="Preferences"] floating enable
 ### Input configuration
 input type:keyboard {
     xkb_model pc105
-    xkb_layout ma,ma,ma
-    xkb_variant french,,tifinagh
+    xkb_layout us,ma,ma,ma
+    xkb_variant basic,french,,tifinagh
     xkb_options grp:rctrl_toggle
 }
 
@@ -106,7 +109,7 @@ bindsym --to-code {
 # Clipboard history
 bindsym --to-code {
     $mod+c exec ~/.config/sway/scripts/clipboard.sh save
-    $mod+v exec ~/.config/sway/scripts/clipboard.sh get "$dmenu"
+    $mod+v exec ~/.config/sway/scripts/clipboard.sh get "$dmenu -p Clipboard"
 }
 # Volume control
 bindsym --to-code {
@@ -156,32 +159,60 @@ bindsym --to-code {
 ### Workspaces:
 bindsym --to-code {
     # Switch workspace
-    $mod+Prior workspace prev
-    $mod+Next workspace next
-    $mod+ampersand workspace 1
-    $mod+eacute workspace 2
-    $mod+quotedbl workspace 3
-    $mod+quoteright workspace 4
-    $mod+parenleft workspace 5
-    $mod+minus workspace 6
-    $mod+egrave workspace 7
-    $mod+underscore workspace 8
-    $mod+ccedilla workspace 9
-    $mod+agrave workspace 10
+    $mod+Prior workspace next
+    $mod+Next workspace prev
+
+# AZERTY FRENCH
+#    $mod+ampersand workspace 1
+#    $mod+eacute workspace 2
+#    $mod+quotedbl workspace 3
+#    $mod+quoteright workspace 4
+#    $mod+parenleft workspace 5
+#    $mod+minus workspace 6
+#    $mod+egrave workspace 7
+#    $mod+underscore workspace 8
+#    $mod+ccedilla workspace 9
+#    $mod+agrave workspace 10
+
+# QWERTY ENGLISH
+    $mod+1 workspace 1
+    $mod+2 workspace 2
+    $mod+3 workspace 3
+    $mod+4 workspace 4
+    $mod+5 workspace 5
+    $mod+6 workspace 6
+    $mod+7 workspace 7
+    $mod+8 workspace 8
+    $mod+9 workspace 9
+    $mod+0 workspace 10
 
     # Move focused container to workspace
-    $mod+Shift+Prior move container to workspace prev; workspace prev 
-    $mod+Shift+Next move container to workspace next; workspace next
-    $mod+Shift+ampersand move container to workspace 1; workspace 1
-    $mod+Shift+eacute move container to workspace 2; workspace 2
-    $mod+Shift+quotedbl move container to workspace 3; workspace 3
-    $mod+Shift+quoteright move container to workspace 4; workspace 4
-    $mod+Shift+parenleft move container to workspace 5; workspace 5
-    $mod+Shift+minus move container to workspace 6; workspace 6
-    $mod+Shift+egrave move container to workspace 7; workspace 7
-    $mod+Shift+underscore move container to workspace 8; workspace 8
-    $mod+Shift+ccedilla move container to workspace 9; workspace 9
-    $mod+Shift+agrave move container to workspace 10; workspace 10
+    $mod+Shift+Prior move container to workspace next; workspace next 
+    $mod+Shift+Next move container to workspace prev; workspace prev
+
+# AZERTY FRENCH
+#    $mod+Shift+ampersand move container to workspace 1; workspace 1
+#    $mod+Shift+eacute move container to workspace 2; workspace 2
+#    $mod+Shift+quotedbl move container to workspace 3; workspace 3
+#    $mod+Shift+quoteright move container to workspace 4; workspace 4
+#    $mod+Shift+parenleft move container to workspace 5; workspace 5
+#    $mod+Shift+minus move container to workspace 6; workspace 6
+#    $mod+Shift+egrave move container to workspace 7; workspace 7
+#    $mod+Shift+underscore move container to workspace 8; workspace 8
+#    $mod+Shift+ccedilla move container to workspace 9; workspace 9
+#    $mod+Shift+agrave move container to workspace 10; workspace 10
+
+# QWERTY ENGLISH
+    $mod+Shift+1 move container to workspace 1; workspace 1
+    $mod+Shift+2 move container to workspace 2; workspace 2
+    $mod+Shift+3 move container to workspace 3; workspace 3
+    $mod+Shift+4 move container to workspace 4; workspace 4
+    $mod+Shift+5 move container to workspace 5; workspace 5
+    $mod+Shift+6 move container to workspace 6; workspace 6
+    $mod+Shift+7 move container to workspace 7; workspace 7
+    $mod+Shift+8 move container to workspace 8; workspace 8
+    $mod+Shift+9 move container to workspace 9; workspace 9
+    $mod+Shift+0 move container to workspace 10; workspace 10
 }
 
 #bindgesture {
