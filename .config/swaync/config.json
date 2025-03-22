@@ -28,7 +28,9 @@
     "title",
     "dnd",
     "notifications",
-    "mpris"
+    "mpris",
+    "buttons-grid",
+    "backlight"
   ],
   "widget-config": {
     "title": {
@@ -38,6 +40,27 @@
     },
     "dnd": {
       "text": "SHUT UP!"
+    },
+    "buttons-grid": {
+        "actions": [
+            {
+                "label": "",
+                "command": "pavucontrol"
+            },
+            {
+                "label": "󰛳",
+                "command": "cmst"
+            },
+                {
+                "label": "",
+                    "command": "power_menu.sh swaynag"
+                }
+        ]
+    },
+    "backlight": {
+      "label": "󰛨",
+      "device": "intel_backlight",
+      "subsystem": "backlight"
     },
     "mpris": {
       "image-size": 120,

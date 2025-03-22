@@ -16,10 +16,10 @@
 @define-color maroon @red;
 
 * {
-  all: unset;
-  font-size: 14px;
-  font-family: "sans-serif";
-  transition: 200ms;
+    all: unset;
+    font-size: 14px;
+    font-family: "sans-serif";
+    transition: 200ms;
 }
 
 trough highlight {
@@ -31,10 +31,6 @@ scale trough {
     background-color: @surface0;
     min-height: 8px;
     min-width: 70px;
-}
-
-slider {
-    background-color: @blue;
 }
 
 .floating-notifications.background .notification-row .notification-background {
@@ -287,17 +283,35 @@ slider {
   border: 1px solid @overlay0;
 }
 
-.widget-mpris .widget-mpris-player {
-    background: @surface0;
-    padding: 7px;
+.widget-mpris {
+  /* The parent to all players */
+  border: 0px;
 }
-
-.widget-mpris .widget-mpris-title {
-    font-size: 1.2rem;
+.widget-mpris-player {
+  padding: 14px;
+  margin: 14px;
+  background-color: @mpris-album-art-overlay;
+  border-radius: 20px;
 }
-
-.widget-mpris .widget-mpris-subtitle {
-    font-size: 0.8rem;
+.widget-mpris-album-art {
+  border-radius: 12px;
+}
+.widget-mpris-player button:hover {
+  /* The media player buttons (play, pause, next, etc...) */
+  background: @dark;
+}
+.widget-mpris > box > button {
+  /* Change player side buttons */
+}
+.widget-mpris > box > button:disabled {
+  /* Change player side buttons insensitive */
+}
+.widget-mpris-title {
+  font-weight: bold;
+  font-size: 1.25rem;
+}
+.widget-mpris-subtitle {
+  font-size: 1.1rem;
 }
 
 .widget-menubar>box>.menu-button-bar>button>label {
@@ -319,13 +333,25 @@ slider {
   color: @text;
   font-size: 2rem;
 }
-
 .widget-buttons-grid {
-    padding-top: 1rem;
+    font-size: large;
+    padding: 1px;
+    margin: 10px;
+    background: transparent;
 }
 
-.widget-buttons-grid>flowbox>flowboxchild>button label {
-    font-size: 2.5rem;
+.widget-buttons-grid>flowbox>flowboxchild>button {
+    margin: 3px;
+    background: @dark;
+    border-radius: 10px;
+    color: @lighter;
+    border: 1px solid @light;
+}
+
+.widget-buttons-grid>flowbox>flowboxchild>button:hover {
+    background: @darker;
+    color: @dark;
+    border: 1px solid @lighter;
 }
 
 .widget-volume {
@@ -341,8 +367,9 @@ slider {
     background: @sapphire;
 }
 
-.widget-backlight trough highlight {
-    background: @yellow;
+.widget-backlight {
+  background-color: @dark;
+  margin: 8px;
 }
 
 .widget-backlight label {
@@ -351,7 +378,14 @@ slider {
 }
 
 .widget-backlight .KB {
-    padding-bottom: 1rem;
+    padding-left: 5px;
+    background-color: alpha(@background, 0.0);
+    font-size: 15px;
+    margin-top: -8px;
+    margin-left: 10px;
+    margin-right: 10px;
+    border-radius: 0px 0px 20px 20px;
+    border: 0px solid transparent;
 }
 
 .image {
