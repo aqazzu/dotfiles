@@ -1,0 +1,22 @@
+configuration {
+    modes: "drun,ssh";
+    font: "mono 16";
+    show-icons: true;
+    steal-focus: true;
+    sort: true;
+    sorting-method: "fzf";
+    matching: "fuzzy";
+
+    kb-cancel: "Escape,Control+g,Control+bracketleft";
+
+    timeout {
+        action: "kb-cancel";
+        delay:  0;
+    }
+    filebrowser {
+        directories-first: true;
+        sorting-method:    "name";
+    }
+}
+
+@theme "choco"
