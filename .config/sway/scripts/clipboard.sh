@@ -1,15 +1,19 @@
 #!/bin/sh
 
 DMENU=$2
+CLIPDIRECTORY="$HOME/.clipdir"
 
 save() {
-    wl-paste |
-    cat - ~/.clipboard > ~/.clipboard_tmp &&
-    mv ~/.clipboard_tmp ~/.clipboard
+    entry=$(date +"clipboard_%Y%m%d_%H%M%S_%N")
+    mime=$(wl-paste -l)
+    mkdir -p $CLIPDIRECTORY
+    echo $mime | cut -d' ' -f1 > $CLIPDIRECTORY/.$entry
+    wl-paste -t $(cat $CLIPDIRECTORY/.$entry) > $CLIPDIRECTORY/$entry
 }
 
 get() {
-    cat ~/.clipboard | $DMENU | wl-copy -n
+    entry=$(ls -r $CLIPDIRECTORY | $DMENU)
+    cat $CLIPDIRECTORY/$entry | wl-copy -n -t $(cat $CLIPDIRECTORY/.$entry)
 }
 
 case $1 in
