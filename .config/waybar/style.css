@@ -59,8 +59,10 @@ button:hover {
 #scratchpad,
 #clock,
 #pulseaudio,
+#privacy,
 #backlight,
 #network,
+#power-profiles-daemon,
 #battery,
 #language,
 #tray,
@@ -71,6 +73,18 @@ button:hover {
     background: @light;
     color: @darker;
     box-shadow: inset 0 4px @dark;
+}
+
+#power-profiles-daemon.performance {
+    background: @red;
+}
+
+#power-profiles-daemon.balanced {
+    background: @yellow;
+}
+
+#power-profiles-daemon.power-saver {
+    background: @green;
 }
 
 #scratchpad {
