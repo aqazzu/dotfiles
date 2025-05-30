@@ -6,7 +6,7 @@ exec lxpolkit
 exec swaync
 exec ~/.config/sway/scripts/wob.sh
 exec wlsunset -S 08:00 -s 19:00 -t 5000 -d 1800
-exec ~/.azotebg
+exec_always ~/.azotebg
 # xdg autostart
 exec dex -a
 
@@ -277,5 +277,3 @@ bar {
     modifier none
 }
 bindsym --to-code $mod+w exec swaymsg bar mode toggle
-
-include /etc/sway/config.d/*
