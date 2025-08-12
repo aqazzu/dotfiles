@@ -128,6 +128,7 @@ bindsym --to-code {
     XF86AudioRaiseVolume exec ~/.config/sway/scripts/volume.sh +5%
     XF86AudioLowerVolume exec ~/.config/sway/scripts/volume.sh -5%
     XF86AudioMicMute exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
+    $mod+XF86AudioMute exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
 }
 
 # Brightness control
