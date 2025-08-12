@@ -58,6 +58,8 @@
     "sway/scratchpad": {
         "format": " {count}",
         "show-empty": true,
+        "on-click": "swaymsg scratchpad show",
+        "on-click-right": "swaymsg move scratchpad",
         "tooltip": false
     },
     "clock": {
